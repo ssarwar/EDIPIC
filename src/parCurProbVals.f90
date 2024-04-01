@@ -1,5 +1,58 @@
 !===================================================================================================
 !
+SUBROUTINE SET_PHYSICAL_CONSTANTS
+
+  USE CurrentProblemValues, ONLY : true_eps_0_Fm, eps_0_Fm
+  USE ParallelOperationValues, ONLY : Rank_of_process
+ 
+  IMPLICIT NONE
+ 
+  LOGICAL exists
+  INTEGER IOS
+  CHARACTER(1) buf
+  REAL(8) temp
+ 
+  eps_0_Fm = true_eps_0_Fm   ! default value
+ 
+  INQUIRE (FILE = 'ssc_physconstants.dat', EXIST = exists)
+ 
+  IF (.NOT.exists) THEN
+     IF (Rank_of_process.EQ.0) PRINT '("###### File ssc_physconstants.dat not found, use default/true eps_0 = ",e15.8," F/m ######")', eps_0_Fm
+     RETURN
+  END IF
+  
+  OPEN (9, FILE = 'ssc_physconstants.dat')
+  READ (9, '(A1)', IOSTAT=IOS) buf ! the vacuum permittivity constant is in the line below (the true value is 8.854188e-12 F/m)
+ 
+  IF (IOS.NE.0) THEN
+     IF (Rank_of_process.EQ.0) PRINT '("###### Error while reading from file ssc_physconstants.dat, use default/true eps_0 = ",e15.8," F/m ######")', eps_0_Fm
+     CLOSE (9, STATUS = 'KEEP')
+     RETURN
+  END IF
+ 
+  READ (9, *, IOSTAT=IOS) temp
+ 
+  IF (IOS.NE.0) THEN
+     IF (Rank_of_process.EQ.0) PRINT '("###### Error while reading from file ssc_physconstants.dat, use default/true eps_0 = ",e15.8," F/m ######")', eps_0_Fm
+     CLOSE (9, STATUS = 'KEEP')
+     RETURN
+  END IF
+ 
+  CLOSE (9, STATUS = 'KEEP')
+ 
+  IF (temp.LE.0.0_8) THEN
+  ! omit negative or zero values
+     IF (Rank_of_process.EQ.0) PRINT '("###### The eps_0 value acquired from file ssc_physconstants.dat is not positive, use default/true eps_0 = ",e15.8," F/m ######")', eps_0_Fm
+     RETURN
+  END IF
+ 
+ ! since we are here use what is in the file
+  eps_0_Fm = temp
+  IF (Rank_of_process.EQ.0) PRINT '("###### WARNING ####### The value of vacuum permittivity is obtained from ssc_physconstants.dat and is eps_0 = ",e15.8," F/m ###### WARNING ######")', eps_0_Fm
+ 
+END SUBROUTINE SET_PHYSICAL_CONSTANTS
+
+
 SUBROUTINE INITIATE_PARAMETERS
 
   USE ParallelOperationValues

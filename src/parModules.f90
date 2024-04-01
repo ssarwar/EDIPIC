@@ -15,10 +15,12 @@ MODULE CurrentProblemValues
 
   REAL(8), PARAMETER :: e_Cl     = 1.602189d-19      ! Charge of single electron [Cl]
   REAL(8), PARAMETER :: m_e_kg   = 9.109534d-31      ! Mass of single electron [kg]
-  REAL(8), PARAMETER :: eps_0_Fm = 8.854188d-12      ! The dielectric constant [F/m]
+  REAL(8), PARAMETER :: true_eps_0_Fm = 8.854188d-12      ! NEW: The true dielectric constant [F/m]
+  !REAL(8), PARAMETER :: eps_0_Fm = 8.854188d-12      ! The dielectric constant [F/m]
   REAL(8), PARAMETER :: mu_0_Hm  = 1.256637d-6       ! The magnetic constant [H/m]
   REAL(8), PARAMETER :: amu_kg = 1.660565d-27        ! atomic mass unit [kg]
 
+  REAL(8) eps_0_Fm        ! NEW : Potentially modified dielectric constant [F/m]
   REAL(8) R_ext_ohm       ! resistance of the resistor in the external circuit [ohm] 
   REAL(8) S_electrode_cm2 ! area of an electrode [cm^2]
   REAL(8) E_z_ext_Vm      ! The external accelerating Z-electric field [V/m]

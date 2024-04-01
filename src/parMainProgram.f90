@@ -17,6 +17,7 @@ PROGRAM MainProg
 
 !  print *, 'my rank is ', Rank_of_process
 
+  CALL SET_PHYSICAL_CONSTANTS      ! NEW: Read in potentially modified epsilon_0
   CALL INITIATE_PARAMETERS         ! all, with some differences, distribute particles over nodes here
 
   CALL INITIATE_MC_COLLISIONS
