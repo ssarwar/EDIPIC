@@ -320,11 +320,11 @@ END SUBROUTINE READ_CHECKPOINT_MPIIO
 !-----------------------------------
 ! creates a string of length "length_of_string" out of an integer number "int_number"
 !
-function convert_int_to_txt_string(int_number, length_of_string)
+character*(length_of_string) function convert_int_to_txt_string(int_number, length_of_string)
 
   implicit none
 
-  character*(length_of_string) convert_int_to_txt_string
+  !character*(length_of_string) convert_int_to_txt_string
   integer int_number
   integer length_of_string
   character(5) format_string
