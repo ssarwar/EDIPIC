@@ -146,8 +146,8 @@ SUBROUTINE INITIATE_PARAMETERS
      READ (9, '(2x,f10.3)') T_e_eV
      READ (9, '(A77)') buf !--dddddd----- Number of macroparticles per cell -----------------------------")')
      READ (9, '(2x,i6)') N_of_particles_cell
-     READ (9, '(A77)') buf !--dddddd----- Number of cells per Debye length ------------------------------")')
-     READ (9, '(2x,i6)') N_of_cells_debye
+     READ (9, '(A77)') buf !--dddddd.dd----- Number of cells per Debye length ---------------------------")') (NEW: now fractional)
+     READ (9, '(2x,f9.2)') N_of_cells_debye
      READ (9, '(A77)') buf !------dd----- Maximal expected velocity (in V_therm_e) ----------------------")')
      READ (9, '(6x,i2)') N_max_vel
      READ (9, '(A77)') buf !--dddddd----- Number of velocity boxes per unit of V_therm ------------------")')
@@ -190,7 +190,7 @@ SUBROUTINE INITIATE_PARAMETERS
      N_plasma_m3          = 1.0d17
      T_e_eV               = 40.0_8
      N_of_particles_cell  = 500
-     N_of_cells_debye     = 16
+     N_of_cells_debye     = 16.0_8
      N_max_vel            = 4
      N_box_vel            = 20
 !======================= Simulation control ========================
@@ -246,8 +246,8 @@ SUBROUTINE INITIATE_PARAMETERS
         WRITE (9, '(2x,f10.3)') T_e_eV
         WRITE (9, '("--dddddd----- Number of macroparticles per cell -----------------------------")')
         WRITE (9, '(2x,i6)') N_of_particles_cell
-        WRITE (9, '("--dddddd----- Number of cells per Debye length ------------------------------")')
-        WRITE (9, '(2x,i6)') N_of_cells_debye
+        WRITE (9, '("--dddddd.dd----- Number of cells per Debye length ----------------------------")')
+        WRITE (9, '(2x,f9.2)') N_of_cells_debye
         WRITE (9, '("------dd----- Maximal expected velocity (in V_therm_e) ----------------------")')
         WRITE (9, '(6x,i2)') N_max_vel
         WRITE (9, '("--dddddd----- Number of velocity boxes per unit of V_therm ------------------")')
@@ -614,7 +614,7 @@ SUBROUTINE INITIATE_PARAMETERS
      PRINT  '(2x,"The electron Debye length                        : ",e10.3, " m")',    L_debye_m 
 
      PRINT '(/2x,"After mesh distribution the plasma length is     : ",f9.3," cm")', L_plasma_m * 100.0_8
-     PRINT  '(2x,"The new plasma length is                         : ",i6," (debye len.)")', (N_cells / N_of_cells_debye)
+     PRINT  '(2x,"The new plasma length is                         : ",f9.2," (debye len.)")', (N_cells / N_of_cells_debye)
      PRINT  '(2x,"Total number of plasma nodes is                  : ",i9)', N_nodes
      PRINT  '(2x,"The cell size is                                 : ",f9.3," mkm")', delta_x_m * 1.0e6
      IF (Restore_from_checkpoint.EQ.0) THEN

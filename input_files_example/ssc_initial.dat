@@ -38,8 +38,8 @@
        0.200
 --dddddd----- Number of macroparticles per cell -----------------------------
   100000
---dddddd----- Number of cells per Debye length ------------------------------
-       5
+--dddddd.dd----- Number of cells per Debye length --------------------------- (NEW: now fractional)
+       5.00
 ------dd----- Maximal expected velocity (in V_therm_e) ----------------------
       10
 --dddddd----- Number of velocity boxes per unit of V_therm ------------------

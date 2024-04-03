@@ -68,7 +68,7 @@ MODULE CurrentProblemValues
 
   INTEGER BC_flag                ! Flag, defines the boundary conditions for the potential
   INTEGER N_of_particles_cell    ! Number of macroparticles of one species per cell
-  INTEGER N_of_cells_debye       ! Number of minimal cells per electron Debye length
+  REAL(8) N_of_cells_debye       ! Number of minimal cells per electron Debye length (NEW: can now have fractional value)
   INTEGER N_max_vel              ! Factor defines the maximal expected electron velocity (in thermal velocities, used for calculation of timestep)
   INTEGER N_max_vel_distrib      ! Factor defines the maximal velocity for initial distribution (in thermal velocities)
 
